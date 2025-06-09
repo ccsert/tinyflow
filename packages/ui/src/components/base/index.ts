@@ -10,6 +10,10 @@ import Select from './select.svelte';
 import FloatingTrigger from './floating-trigger.svelte';
 import Heading from './heading.svelte';
 import MenuButton from './menu-button.svelte';
+import SmartTemplateEditor from './smart-template-editor.svelte';
+import SmartCodeEditor from './smart-code-editor.svelte';
+import VariableSelector from './variable-selector.svelte';
+import CodeEditorToolbar from './code-editor-toolbar.svelte';
 
 export {
     Button,
@@ -23,5 +27,9 @@ export {
     Select,
     FloatingTrigger,
     Heading,
-    MenuButton
+    MenuButton,
+    SmartTemplateEditor,
+    SmartCodeEditor,
+    VariableSelector,
+    CodeEditorToolbar
 };

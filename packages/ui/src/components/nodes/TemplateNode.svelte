@@ -2,11 +2,12 @@
     import NodeWrapper from '../core/NodeWrapper.svelte';
     import { type NodeProps, useSvelteFlow } from '@xyflow/svelte';
     import { Button, Heading } from '../base';
-    import { Textarea } from '../base/index.js';
+    import { SmartTemplateEditor, VariableSelector } from '../base/index.js';
     import RefParameterList from '../core/RefParameterList.svelte';
     import { getCurrentNodeId } from '../../store/nodeContext';
     import { useAddParameter } from '../utils/useAddParameter';
     import OutputDefList from '../core/OutputDefList.svelte';
+    import { useRefOptions } from '../utils/useRefOptions';
 
     const { data, ...rest }: {
         data: NodeProps['data'],
@@ -15,9 +16,28 @@
 
     const currentNodeId = getCurrentNodeId();
     const { addParameter } = useAddParameter();
-
-
     const { updateNodeData } = useSvelteFlow();
+
+    // 获取可用的变量选项
+    const variableOptions = useRefOptions();
+
+    // 模板编辑器引用
+    let templateEditor: any;
+
+    // 处理变量插入
+    const handleVariableInsert = (variable: string) => {
+        if (templateEditor && templateEditor.insertText) {
+            templateEditor.insertText(variable);
+        } else {
+            // 如果编辑器没有 insertText 方法，则追加到当前值
+            const currentTemplate = data.template || '';
+            updateNodeData(currentNodeId, () => {
+                return {
+                    template: currentTemplate + variable
+                }
+            });
+        }
+    };
 
     $effect(() => {
         if (!data.outputDefs || data.outputDefs.length === 0) {
@@ -53,16 +73,32 @@
     </div>
     <RefParameterList />
 
-    <Heading level={3} mt="10px" mb="10px">模板内容</Heading>
+    <div class="heading">
+        <Heading level={3} mt="10px" mb="10px">模板内容</Heading>
+        <VariableSelector
+            variableOptions={$variableOptions}
+            onVariableSelect={handleVariableInsert}
+            buttonText="插入变量"
+            style="margin-left: auto"
+        />
+    </div>
 
     <div class="setting-item">
-        <Textarea rows={10} placeholder="请输入模板内容" style="width: 100%" onchange={(e:any)=>{
-            updateNodeData(currentNodeId, ()=>{
-                return {
-                    template: e.target.value
-                }
-            })
-        }} value={data.template ||""} />
+        <SmartTemplateEditor
+            bind:this={templateEditor}
+            rows={10}
+            placeholder="请输入模板内容，使用 ${变量名} 引用变量"
+            style="width: 100%"
+            onchange={(value) => {
+                updateNodeData(currentNodeId, () => {
+                    return {
+                        template: value
+                    }
+                })
+            }}
+            value={data.template || ""}
+            variableOptions={$variableOptions}
+        />
     </div>
 
 
