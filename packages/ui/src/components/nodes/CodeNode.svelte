@@ -2,7 +2,7 @@
     import NodeWrapper from '../core/NodeWrapper.svelte';
     import { type NodeProps, useSvelteFlow } from '@xyflow/svelte';
     import { Button, Heading, Select } from '../base';
-    import { Textarea } from '../base/index.js';
+    import { SmartCodeEditor } from '../base/index.js';
     import RefParameterList from '../core/RefParameterList.svelte';
     import { getCurrentNodeId } from '../../store/nodeContext';
     import { useAddParameter } from '../utils/useAddParameter';
@@ -35,6 +35,23 @@
         { label: 'Groovy', value: 'groovy' },
         { label: 'JavaScript', value: 'js' }
     ];
+
+    // 获取当前选择的语言，用于代码编辑器
+    const currentLanguage = $derived(data.engine || 'qlexpress');
+
+    // 根据语言提供不同的占位符文本
+    const getPlaceholder = (engine: string) => {
+        switch (engine) {
+            case 'qlexpress':
+                return '请输入 QLExpress 代码，注：输出内容需添加到 _result 中，如：_result.put("key", value)';
+            case 'groovy':
+                return '请输入 Groovy 代码';
+            case 'js':
+                return '请输入 JavaScript 代码';
+            default:
+                return '请输入执行代码';
+        }
+    };
 
 
 </script>
@@ -76,13 +93,20 @@
 
     <div class="setting-title">执行代码</div>
     <div class="setting-item">
-        <Textarea rows={10} placeholder="请输入执行代码，注：输出内容需添加到_result中，如：_result.put(key, value)" style="width: 100%" onchange={(e:any)=>{
-            updateNodeData(currentNodeId, ()=>{
-                return {
-                    code: e.target.value
-                }
-            })
-        }} value={data.code as string||""} />
+        <SmartCodeEditor
+            height={300}
+            language={currentLanguage}
+            placeholder={getPlaceholder(currentLanguage)}
+            style="width: 100%"
+            onchange={(value) => {
+                updateNodeData(currentNodeId, () => {
+                    return {
+                        code: value
+                    }
+                })
+            }}
+            value={data.code as string || ""}
+        />
     </div>
 
 

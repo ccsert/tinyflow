@@ -21,10 +21,30 @@ export default defineConfig({
             name: 'Tinyflow'
         },
         rollupOptions:{
+            external: [
+                'monaco-editor',
+                '@codemirror/state',
+                '@codemirror/view',
+                '@codemirror/lang-javascript',
+                '@codemirror/lang-python',
+                '@codemirror/autocomplete',
+                '@codemirror/commands',
+                '@codemirror/search',
+                '@codemirror/lint'
+            ],
             output: {
-                // 确保所有依赖都被打包
-                inlineDynamicImports: true,
                 exports: 'named',
+                globals: {
+                    'monaco-editor': 'monaco',
+                    '@codemirror/state': 'CodeMirrorState',
+                    '@codemirror/view': 'CodeMirrorView',
+                    '@codemirror/lang-javascript': 'CodeMirrorLangJavaScript',
+                    '@codemirror/lang-python': 'CodeMirrorLangPython',
+                    '@codemirror/autocomplete': 'CodeMirrorAutocomplete',
+                    '@codemirror/commands': 'CodeMirrorCommands',
+                    '@codemirror/search': 'CodeMirrorSearch',
+                    '@codemirror/lint': 'CodeMirrorLint'
+                }
             },
             plugins: [
                 replace({

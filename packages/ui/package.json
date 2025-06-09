@@ -1,77 +1,94 @@
 {
-  "name": "@tinyflow-ai/ui",
-  "version": "0.2.2",
-  "type": "module",
-  "keywords": [
-    "tinyflow",
-    "ai",
-    "ai flow",
-    "agent flow",
-    "agents flow"
-  ],
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "browser": "./dist/index.umd.js",
-  "license": "LGPL-3.0-or-later",
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
-  ],
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
-    "lint": "eslint ."
-  },
-  "devDependencies": {
-    "@rollup/plugin-replace": "^6.0.2",
-    "@sveltejs/vite-plugin-svelte": "^5.0.3",
-    "@tinyflow-ai/eslint-config": "workspace:*",
-    "@tsconfig/svelte": "^5.0.4",
-    "@types/node": "^22.13.4",
-    "autoprefixer": "^10.4.21",
-    "less": "^4.2.2",
-    "svelte": "^5.28.2",
-    "svelte-check": "^4.1.7",
-    "typescript": "^5.6.2",
-    "vite": "^6.3.5",
-    "vite-plugin-dts": "^4.5.3"
-  },
-  "dependencies": {
-    "@floating-ui/dom": "^1.7.0",
-    "@xyflow/svelte": "^0.1.39"
-  },
-  "imports": {
-    "#*": [
-      "./src/*.ts",
-      "./src/*.svelte"
-    ]
-  },
-  "exports": {
-    ".": {
-      "svelte": "./src/index.ts",
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+    "name": "@tinyflow-ai/ui",
+    "version": "0.2.2",
+    "type": "module",
+    "keywords": [
+        "tinyflow",
+        "ai",
+        "ai flow",
+        "agent flow",
+        "agents flow"
+    ],
+    "types": "./dist/index.d.ts",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "browser": "./dist/index.umd.js",
+    "license": "LGPL-3.0-or-later",
+    "files": [
+        "dist",
+        "LICENSE",
+        "README.md"
+    ],
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
+        "lint": "eslint .",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:ui": "vitest --ui"
     },
-    "./dist/index.css": {
-      "import": "./dist/index.css",
-      "require": "./dist/index.css"
-    }
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tinyflow-ai/tinyflow"
-  },
-  "bugs": {
-    "url": "https://github.com/tinyflow-ai/tinyflow/issues"
-  },
-  "homepage": "https://github.com/tinyflow-ai/tinyflow#readme"
+    "devDependencies": {
+        "@rollup/plugin-replace": "^6.0.2",
+        "@sveltejs/vite-plugin-svelte": "^5.0.3",
+        "@testing-library/jest-dom": "^6.6.3",
+        "@testing-library/svelte": "^5.2.8",
+        "@tinyflow-ai/eslint-config": "workspace:*",
+        "@tsconfig/svelte": "^5.0.4",
+        "@types/node": "^22.13.4",
+        "@vitest/ui": "^3.2.2",
+        "autoprefixer": "^10.4.21",
+        "jsdom": "^26.1.0",
+        "less": "^4.2.2",
+        "svelte": "^5.28.2",
+        "svelte-check": "^4.1.7",
+        "typescript": "^5.6.2",
+        "vite": "^6.3.5",
+        "vite-plugin-dts": "^4.5.3",
+        "vitest": "^3.2.2"
+    },
+    "dependencies": {
+        "@floating-ui/dom": "^1.7.0",
+        "@xyflow/svelte": "^0.1.39",
+        "@codemirror/state": "^6.4.1",
+        "@codemirror/view": "^6.26.3",
+        "@codemirror/lang-javascript": "^6.2.2",
+        "@codemirror/lang-python": "^6.1.4",
+        "@codemirror/autocomplete": "^6.15.0",
+        "@codemirror/commands": "^6.3.3",
+        "@codemirror/search": "^6.5.6",
+        "@codemirror/lint": "^6.5.0",
+        "monaco-editor": "^0.47.0"
+    },
+    "imports": {
+        "#*": [
+            "./src/*.ts",
+            "./src/*.svelte"
+        ]
+    },
+    "exports": {
+        ".": {
+            "svelte": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        },
+        "./dist/index.css": {
+            "import": "./dist/index.css",
+            "require": "./dist/index.css"
+        }
+    },
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tinyflow-ai/tinyflow"
+    },
+    "bugs": {
+        "url": "https://github.com/tinyflow-ai/tinyflow/issues"
+    },
+    "homepage": "https://github.com/tinyflow-ai/tinyflow#readme"
 }
